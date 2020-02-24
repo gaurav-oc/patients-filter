@@ -28,6 +28,7 @@ if __name__ == "__main__":
                         help="Database Host IP or Host Address, Default: localhost")
     parser.add_argument('-t', '--table', type=str, default="patient",
                         help="Table where to store the parsed Results, Default: patient")
+    parser.add_argument('--port',type=int,default=5432,help="Port on which Db is running")
     args = parser.parse_args()
     db = {}
     if args.noDatabaseInitializerFile:
@@ -37,6 +38,7 @@ if __name__ == "__main__":
             db["password"] = args.dbPassword
             db["host"] = args.host
             db["database"] = args.database
+            db["port"] = args.port
         else:
             print("Please Specify Database Name and Password")
             sys.exit()
@@ -51,6 +53,7 @@ if __name__ == "__main__":
             if parser.has_section(section):
                 for item in parser.items(section):
                     db[item[0]] = item[1]
+                db["port"] = args.port
             else:
 
                 print("Please Write Your {file} in the Following Format".format(file=args.databaseInitializerFile))
@@ -63,6 +66,7 @@ if __name__ == "__main__":
             print(iniFormat)
             sys.exit()
     try:
+        print(db["port"])
         datafilePath = os.path.abspath(args.dataFile)
         if os.path.isfile(datafilePath):
             df = pd.read_csv(datafilePath)
@@ -71,10 +75,11 @@ if __name__ == "__main__":
             df = df[((df.age > 40) & (df.disease.str.contains('cancer')))]
 
             conn = psycopg2.connect(**db)
-            postgres_url = "postgresql://{user}:{password}@{host}:5432/{database}".format(**db)
+            postgres_url = "postgresql://{user}:{password}@{host}:{port}/{database}".format(**db)
             engine = create_engine(postgres_url)
             df.to_sql('patients', engine, if_exists='append',index=False)
         else:
             print("Record File Doesn't Exist")
     except Exception as e:
-        print(str(e))
+        print(db["host"],db["port"])
+        print("Exception: ",str(e))

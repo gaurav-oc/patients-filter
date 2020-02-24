@@ -5,11 +5,9 @@ metadata:
   labels:
     app: postgres-svc
 spec:
-  type: NodePort
   ports:
   - name: psgres-port
     port: 5432
     targetPort: 5432
-    nodePort: 30032
   selector:
-    app: postgres-svc
+    app: postgres
