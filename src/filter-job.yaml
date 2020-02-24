@@ -1,0 +1,22 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: filter-job
+spec:
+  containers:
+    - name: filter-job
+      image: filter:1.0.0
+      volumeMounts:
+        - mountPath: /data
+          name: data-files
+        - mountPath: /db-config
+          name: db-config
+      command: ["python3", "filter.py", "-dif","/db-config/database.ini"]
+  retstartPolicy: Never
+  volumes:
+    - name: data-files
+      hostPath:
+        path: /data
+    - name: db-config
+      hostPath:
+        path: /db-config

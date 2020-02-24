@@ -21,6 +21,6 @@ for letter in ascii_lowercase:
     diseases = [tag.text for tag in tags]
     all_diseases.extend(diseases)
     time.sleep(random.randint(100, 400) / 1000)
-with open('diseases.csv',"w",newline="\n") as f:
+with open('data/diseases.csv', "w", newline="\n") as f:
     for disease in all_diseases:
         f.write(disease)

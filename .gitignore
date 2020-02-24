@@ -1,6 +1,6 @@
 venv
 database.ini
-diseases.csv
-fake_person.csv
+data/diseases.csv
+data/fake_person.csv
 .idea
 .ipynb_checkpoints
