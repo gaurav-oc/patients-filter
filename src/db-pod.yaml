@@ -7,11 +7,11 @@ metadata:
 spec:
   containers:
     - name: postgres
-    image: postgres
-    env:
-    - name: POSTGRES_PASSWORD
-      value: "psgress_oc"
-    - name: POSTGRES_DB
-      value: "medical"
-    ports:
-      - containerPort: 5432
+      image: postgres
+      env:
+      - name: POSTGRES_PASSWORD
+        value: "psgress_oc"
+      - name: POSTGRES_DB
+        value: "medical"
+      ports:
+        - containerPort: 5432
