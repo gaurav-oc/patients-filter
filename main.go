@@ -179,17 +179,20 @@ func main(){
 	for _ , record:= range records{
 		var (
 			name=record[columnsIndex[nameColumn]]
-			age,_ =strconv.ParseInt(record[columnsIndex[ageColumn]],10,32)
 			disease=record[columnsIndex[diseaseColumn]]
 			city=record[columnsIndex[diseaseColumn]]
 		)
-		if age>40 && strings.Contains(strings.ToLower(disease),"cancer") {
-			var newRecord patientRecord= patientRecord{name:name , age:int(age), disease: disease, city: city }
-			_=append(filteredRecords,newRecord)
+		age,err :=strconv.ParseInt(record[columnsIndex[ageColumn]],10,32)
+		if err!=nil{
+			fmt.Println(err)
 		}
-		
+		else {
+			if age>40 && strings.Contains(strings.ToLower(disease),"cancer") {
+			var newRecord patientRecord= patientRecord{name:name , age:int(age), disease: disease, city: city }
+			filteredRecords=append(filteredRecords,newRecord)
+			}
+		}
 	}
-	fmt.Println(len(filteredRecords))
 }
 	
 	
