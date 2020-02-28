@@ -25,9 +25,9 @@ if __name__ == "__main__":
     parser.add_argument('-p', '--dbPassword', type=str, help="Database Password")
     parser.add_argument('-db', '--database', type=str, help="Database Name")
     parser.add_argument('-hs', '--host', type=str, default="localhost",
-                        help="Database Host IP or Host Address, Default: localhost")
+                        help="Database Host IP or Host Address")
     parser.add_argument('-t', '--table', type=str, default="patient",
-                        help="Table where to store the parsed Results, Default: patient")
+                        help="Table where to store the parsed Results")
     parser.add_argument('--port',type=int,default=5432,help="Port on which Db is running")
     args = parser.parse_args()
     db = {}
